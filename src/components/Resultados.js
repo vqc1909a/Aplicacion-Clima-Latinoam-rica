@@ -1,8 +1,19 @@
 import React, {Fragment}from 'react';
 import PropTypes from 'prop-types';
-const Resultados = ({clima}) => {
-      const {cod, name, main, weather} = clima;
+import {paises} from '../helpers';
 
+const Resultados = ({clima}) => {
+      const {cod, name, main, weather, sys} = clima;
+
+      const obtenerPais = (valor) => {
+          let obtenido;
+          paises.forEach(pais=>{
+               if(pais.value === valor){
+                    obtenido = pais.pais
+               }
+          })
+          return obtenido;
+      }
       //!Grados kelvin
       const kelvin = 273.15
      let component;
@@ -13,8 +24,10 @@ const Resultados = ({clima}) => {
                               <p className="display-4">{(main.temp - kelvin).toFixed(2)} &#x2103;</p>
                               <h4 className="ml-2 font-weight-bolder text-left">Detalles:</h4>
                               <div className="list-group list-group-flush text-left">
+                                   <li className="list-group-item lead"><span className="font-weight-bolder">• País:</span> {obtenerPais(sys.country)}</li>
+                                   <li className="list-group-item lead"><span className="font-weight-bolder">• Ciudad:</span> {name}</li>
                                    <li className="list-group-item lead"><span className="font-weight-bolder">• Situación:</span> {weather[0].description}</li>
-                                   <li className="list-group-item lead"><span className="font-weight-bolder">• Temperatura Máxima</span>  {(main.temp_max - kelvin).toFixed(2)} &#x2103;</li>
+                                   <li className="list-group-item lead"><span className="font-weight-bolder">• Temperatura Máxima</span> {(main.temp_max - kelvin).toFixed(2)} &#x2103;</li>
                                    <li className="list-group-item lead"><span className="font-weight-bolder">• Temperatura Mínima</span> {(main.temp_min - kelvin).toFixed(2)} &#x2103;</li>
                               </div>
                          </div>

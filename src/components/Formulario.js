@@ -1,6 +1,7 @@
 import React, {useState}from 'react';
 import axios from 'axios'
 import PropTypes from 'prop-types';
+import {paises} from '../helpers';
 const Formulario = ({title, agregarClima, changeSpinner}) => {
      const [data, changeData] = useState({
           ciudad: '',
@@ -31,7 +32,7 @@ const Formulario = ({title, agregarClima, changeSpinner}) => {
                     error: ''
                })
           try {
-               const {data} = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad.trim()},${pais}&appid=${process.env.REACT_APP_API_KEY}&lang=es`)
+               const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${ciudad.trim()},${pais}&appid=${process.env.REACT_APP_API_KEY}&lang=es`)
                agregarClima(data);
                changeSpinner(false);
                changeData({
@@ -52,18 +53,7 @@ const Formulario = ({title, agregarClima, changeSpinner}) => {
 
      }
 
-     const paises = [
-          {value: 'pe', pais: 'Perú'},
-          {value: 'ar', pais: 'Argentina'},
-          {value: 'co', pais: 'Colombia'},
-          {value: 'bo', pais: 'Bolivia'},
-          {value: 'br', pais: 'Brasil'},
-          {value: 've', pais: 'Venezuela'},
-          {value: 'uy', pais: 'Uruguay'},
-          {value: 'py', pais: 'Paraguay'},
-          {value: 'ec', pais: 'Ecuador'},
-          {value: 'cl', pais: 'Chile'},
-     ]
+     
      return (
           <div className="card bg-secondary text-primary font-weight-bolder">
                <div className="card-header">
